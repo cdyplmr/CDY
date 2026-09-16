@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CDY</title>
+<meta name="description" content="CDY — Music, projects and information.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+    --background: #f3f3ef;
+    --text: #111;
+    --secondary: #777;
+    --line: #c9c9c3;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+::selection {
+    background: #111;
+    color: #fff;
+}
+
+main {
+    width: min(900px, calc(100% - 40px));
+    margin: auto;
+}
+
+
+/* HEADER */
+
+header {
+    padding: 35px 0 80px;
+    opacity: 0;
+    animation: startup 0.8s ease forwards;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-top: 1px solid var(--text);
+    padding-top: 12px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.status {
+    color: var(--secondary);
+    text-align: right;
+    font-size: 11px;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #111;
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: pulse 2s infinite;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+    margin-top: 30px;
+}
+
+nav a::before {
+    content: "/";
+    color: var(--secondary);
+    margin-right: 3px;
+}
+
+
+/* TEXT */
+
+h1, h2, h3 {
+    font-size: inherit;
+    font-weight: 500;
+}
+
+h1 {
+    font-size: 23px;
+    margin: 0 0 25px;
+}
+
+h2 {
+    margin: 0 0 35px;
+}
+
+h3 {
+    margin: 0 0 5px;
+}
+
+p {
+    margin: 0 0 20px;
+}
+
+a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.15s;
+}
+
+a:hover {
+    opacity: 0.45;
+}
+
+.muted {
+    color: var(--secondary);
+}
+
+
+/* SECTIONS */
+
+section {
+    border-top: 1px solid var(--line);
+    padding: 18px 0 110px;
+}
+
+.section-heading {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    margin-bottom: 45px;
+}
+
+.number {
+    color: var(--secondary);
+}
+
+.section-heading h2 {
+    margin: 0;
+}
+
+.intro {
+    border: none;
+    padding-top: 0;
+}
+
+.intro-grid {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+}
+
+.intro-content {
+    max-width: 600px;
+}
+
+
+/* RELEASE */
+
+.release {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 45px;
+}
+
+.artwork {
+    aspect-ratio: 1;
+    border: 1px solid var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.artwork::before,
+.artwork::after {
+    content: "";
+    position: absolute;
+    background: var(--line);
+}
+
+.artwork::before {
+    width: 100%;
+    height: 1px;
+}
+
+.artwork::after {
+    height: 100%;
+    width: 1px;
+}
+
+.artwork span {
+    background: var(--background);
+    padding: 4px 8px;
+    z-index: 2;
+    font-size: 11px;
+}
+
+.metadata {
+    margin-bottom: 25px;
+    font-size: 11px;
+}
+
+.metadata div {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    border-bottom: 1px dotted var(--line);
+    padding: 3px 0;
+}
+
+.metadata span:first-child {
+    color: var(--secondary);
+}
+
+
+/* ARCHIVE */
+
+.archive-item {
+    display: grid;
+    grid-template-columns: 80px 1fr 100px;
+    gap: 10px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.archive-item:first-of-type {
+    border-top: 1px solid var(--line);
+}
+
+.archive-item .year {
+    color: var(--secondary);
+}
+
+.archive-item .type {
+    text-align: right;
+    color: var(--secondary);
+}
+
+.archive-item a {
+    text-decoration: none;
+}
+
+.archive-item:hover {
+    padding-left: 8px;
+    transition: padding 0.2s ease;
+}
+
+
+/* NOTES */
+
+.note {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    border-bottom: 1px solid var(--line);
+    padding: 20px 0;
+}
+
+.note-date {
+    color: var(--secondary);
+}
+
+
+/* SYSTEM INFORMATION */
+
+.system-grid {
+    border-top: 1px solid var(--line);
+}
+
+.system-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.system-row span:first-child {
+    color: var(--secondary);
+}
+
+
+/* FOOTER */
+
+footer {
+    border-top: 1px solid var(--text);
+    padding: 15px 0 50px;
+
+    display: flex;
+    justify-content: space-between;
+
+    color: var(--secondary);
+    font-size: 11px;
+}
+
+
+/* FADING */
+
+.fade {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(2px);
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease,
+        filter 0.7s ease;
+}
+
+.fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+
+/* ANIMATIONS */
+
+@keyframes startup {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.25;
+    }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+
+    main {
+        width: calc(100% - 28px);
+    }
+
+    header {
+        padding-top: 20px;
+        padding-bottom: 60px;
+    }
+
+    .status {
+        display: none;
+    }
+
+    .intro-grid,
+    .section-heading {
+        grid-template-columns: 45px 1fr;
+    }
+
+    .release {
+        grid-template-columns: 1fr;
+    }
+
+    .artwork {
+        max-width: 330px;
+    }
+
+    .archive-item {
+        grid-template-columns: 50px 1fr;
+    }
+
+    .archive-item .type {
+        display: none;
+    }
+
+    .note {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .system-row {
+        grid-template-columns: 120px 1fr;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    .fade,
+    header {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        transition: none;
+        animation: none;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<main>
+
+<header>
+
+    <div class="top">
+
+        <a href="#" class="logo">CDY</a>
+
+        <div class="status">
+            <span class="status-dot"></span>ONLINE<br>
+            CDY / MUSIC ARCHIVE<br>
+            EST. [YEAR]
+        </div>
+
+    </div>
+
+    <nav>
+        <a href="#music">Music</a>
+        <a href="#archive">Archive</a>
+        <a href="#about">About</a>
+        <a href="#notes">Notes</a>
+        <a href="#links">Links</a>
+    </nav>
+
+</header>
+
+
+<!-- INTRO -->
+
+<section class="intro fade">
+
+    <div class="intro-grid">
+
+        <div class="number">[00]</div>
+
+        <div class="intro-content">
+
+            <h1>Hello.</h1>
+
+            <p>
+                This is the website of CDY.
+            </p>
+
+            <p>
+                Put your main introduction here. Write about your music,
+                what you are currently working on, recent releases, or
+                anything else you want people to see.
+            </p>
+
+            <p>
+                This area can contain as much information as you want.
+                Add more paragraphs whenever you need them.
+            </p>
+
+            <p class="muted">
+                Last updated: [DATE]
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LATEST -->
+
+<section id="music" class="fade">
+
+    <div class="section-heading">
+        <span class="number">[01]</span>
+        <h2>Latest Release</h2>
+    </div>
+
+    <div class="release">
+
+        <div class="artwork">
+            <span>300 × 300 / ARTWORK</span>
+        </div>
+
+        <div>
+
+            <h3>[RELEASE NAME]</h3>
+
+            <div class="metadata">
+
+                <div>
+                    <span>Artist</span>
+                    <span>CDY</span>
+                </div>
+
+                <div>
+                    <span>Released</span>
+                    <span>[DATE]</span>
+                </div>
+
+                <div>
+                    <span>Type</span>
+                    <span>[Album / EP / Single]</span>
+                </div>
+
+                <div>
+                    <span>Tracks</span>
+                    <span>[00]</span>
+                </div>
+
+                <div>
+                    <span>Runtime</span>
+                    <span>[00:00]</span>
+                </div>
+
+                <div>
+                    <span>Catalogue</span>
+                    <span>CDY-[000]</span>
+                </div>
+
+            </div>
+
+            <p>
+                Write information about this release here. You could
+                explain where the idea came from, how you made it,
+                what it sounds like, or anything else.
+            </p>
+
+            <p>
+                Add another paragraph here if you want.
+            </p>
+
+            <p>
+                <a href="#">Listen</a>
+                /
+                <a href="#">Download</a>
+                /
+                <a href="#">Info</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ARCHIVE -->
+
+<section id="archive" class="fade">
+
+    <div class="section-heading">
+        <span class="number">[02]</span>
+        <h2>Archive</h2>
+    </div>
+
+    <div class="archive-item">
+        <span class="year">2026</span>
+        <a href="#">[Release Name]</a>
+        <span class="type">Album</span>
+    </div>
+
+    <div class="archive-item">
+        <span class="year">2026</span>
+        <a href="#">[Release Name]</a>
+        <span class="type">Single</span>
+    </div>
+
+    <div class="archive-item">
+        <span class="year">2026</span>
+        <a href="#">[Release Name]</a>
+        <span class="type">EP</span>
+    </div>
+
+    <div class="archive-item">
+        <span class="year">2025</span>
+        <a href="#">[Release Name]</a>
+        <span class="type">Single</span>
+    </div>
+
+    <div class="archive-item">
+        <span class="year">2025</span>
+        <a href="#">[Project / Mix]</a>
+        <span class="type">Mix</span>
+    </div>
+
+    <div class="archive-item">
+        <span class="year">[YEAR]</span>
+        <a href="#">[Add Something]</a>
+        <span class="type">Other</span>
+    </div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about" class="fade">
+
+    <div class="section-heading">
+        <span class="number">[03]</span>
+        <h2>About</h2>
+    </div>
+
+    <p>
+        CDY is [write information here].
+    </p>
+
+    <p>
+        Write about how you started making music, what you make,
+        what influences you, or whatever you think belongs here.
+    </p>
+
+    <p>
+        Add another paragraph.
+    </p>
+
+    <p>
+        And another one.
+    </p>
+
+    <br>
+
+    <div class="system-grid">
+
+        <div class="system-row">
+            <span>Artist</span>
+            <span>CDY</span>
+        </div>
+
+        <div class="system-row">
+            <span>Started</span>
+            <span>[YEAR]</span>
+        </div>
+
+        <div class="system-row">
+            <span>Location</span>
+            <span>[OPTIONAL]</span>
+        </div>
+
+        <div class="system-row">
+            <span>DAW</span>
+            <span>[SOFTWARE]</span>
+        </div>
+
+        <div class="system-row">
+            <span>Equipment</span>
+            <span>[EQUIPMENT]</span>
+        </div>
+
+        <div class="system-row">
+            <span>Genre</span>
+            <span>[GENRE / GENRES]</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- NOTES -->
+
+<section id="notes" class="fade">
+
+    <div class="section-heading">
+        <span class="number">[04]</span>
+        <h2>Notes</h2>
+    </div>
+
+    <div class="note">
+
+        <div class="note-date">
+            16.09.2026
+        </div>
+
+        <div>
+            <p>
+                Put an update here. This could be about new music,
+                something you are making, or just something you wanted
+                to put on the website.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="note">
+
+        <div class="note-date">
+            [DATE]
+        </div>
+
+        <div>
+            <p>
+                Put another update here.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="note">
+
+        <div class="note-date">
+            [DATE]
+        </div>
+
+        <div>
+            <p>
+                Another note goes here.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LINKS -->
+
+<section id="links" class="fade">
+
+    <div class="section-heading">
+        <span class="number">[05]</span>
+        <h2>External</h2>
+    </div>
+
+    <p>
+        → <a href="#">YouTube</a><br>
+        → <a href="#">Bandcamp</a><br>
+        → <a href="#">SoundCloud</a><br>
+        → <a href="#">Spotify</a><br>
+        → <a href="#">[Other]</a><br>
+        → <a href="#">[Other]</a>
+    </p>
+
+    <br>
+
+    <h3>Contact</h3>
+
+    <p>
+        Put public contact information or a contact link here.
+    </p>
+
+</section>
+
+
+<footer>
+
+    <span>© 2026 CDY</span>
+
+    <span>CDY.SYS / BUILD 001</span>
+
+</footer>
+
+</main>
+
+
+<script>
+
+const fadeElements = document.querySelectorAll(".fade");
+
+const observer = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+        }
+
+    });
+
+}, {
+    threshold: 0.08,
+    rootMargin: "0px 0px -30px 0px"
+});
+
+fadeElements.forEach(element => {
+    observer.observe(element);
+});
+
+</script>
+
+</body>
+</html>
