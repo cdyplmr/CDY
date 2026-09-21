@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CDY — Album Info</title>
+<meta name="description" content="Album information — CDY">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+    --background: #f3f3ef;
+    --text: #111;
+    --secondary: #777;
+    --line: #c9c9c3;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+::selection {
+    background: #111;
+    color: #fff;
+}
+
+main {
+    width: min(900px, calc(100% - 40px));
+    margin: auto;
+}
+
+/* HEADER */
+
+header {
+    padding: 35px 0 80px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-top: 1px solid var(--text);
+    padding-top: 12px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.status {
+    color: var(--secondary);
+    text-align: right;
+    font-size: 11px;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #111;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.15s;
+}
+
+a:hover {
+    opacity: 0.45;
+}
+
+.muted {
+    color: var(--secondary);
+}
+
+/* PAGE */
+
+section {
+    border-top: 1px solid var(--line);
+    padding: 18px 0 80px;
+}
+
+.section-heading {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    margin-bottom: 45px;
+}
+
+.number {
+    color: var(--secondary);
+}
+
+h1, h2, h3 {
+    font-size: inherit;
+    font-weight: 500;
+}
+
+h1 {
+    font-size: 23px;
+    margin: 0;
+}
+
+h2 {
+    margin: 0;
+}
+
+h3 {
+    margin: 0 0 5px;
+}
+
+/* ALBUM HEADER */
+
+.album-header {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 45px;
+    margin-bottom: 70px;
+}
+
+.artwork {
+    width: 300px;
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+.artwork img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.album-details {
+    align-self: center;
+}
+
+.album-details h1 {
+    margin-bottom: 20px;
+}
+
+.metadata {
+    font-size: 11px;
+}
+
+.metadata div {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    border-bottom: 1px dotted var(--line);
+    padding: 3px 0;
+}
+
+.metadata span:first-child {
+    color: var(--secondary);
+}
+
+/* TRACKLIST */
+
+.tracklist {
+    border-top: 1px solid var(--line);
+}
+
+.track {
+    display: grid;
+    grid-template-columns: 45px 1fr 70px;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.track-number,
+.track-duration {
+    color: var(--secondary);
+}
+
+.track-duration {
+    text-align: right;
+}
+
+/* CREDITS */
+
+.credit {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.credit span:first-child {
+    color: var(--secondary);
+}
+
+/* LINKS */
+
+.links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+}
+
+/* COPYRIGHT */
+
+.copyright {
+    color: var(--secondary);
+    font-size: 11px;
+    border-top: 1px solid var(--line);
+    padding-top: 15px;
+}
+
+/* FOOTER */
+
+footer {
+    border-top: 1px solid var(--text);
+    padding: 15px 0 50px;
+    display: flex;
+    justify-content: space-between;
+    color: var(--secondary);
+    font-size: 11px;
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+
+    main {
+        width: calc(100% - 28px);
+    }
+
+    header {
+        padding-top: 20px;
+        padding-bottom: 60px;
+    }
+
+    .status {
+        display: none;
+    }
+
+    .section-heading {
+        grid-template-columns: 45px 1fr;
+    }
+
+    .album-header {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .artwork {
+        width: 100%;
+        max-width: 330px;
+    }
+
+    .track {
+        grid-template-columns: 35px 1fr 60px;
+    }
+
+    .credit {
+        grid-template-columns: 120px 1fr;
+    }
+
+    footer {
+        gap: 20px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<main>
+
+<header>
+
+    <div class="top">
+
+        <a href="index.html" class="logo">CDY</a>
+
+        <div class="status">
+            <span class="status-dot"></span>ONLINE<br>
+            CDY / MUSIC<br>
+            EST. 2026
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ALBUM -->
+
+<section>
+
+    <div class="section-heading">
+        <span class="number">[01]</span>
+        <h2>Album</h2>
+    </div>
+
+
+    <div class="album-header">
+
+        <div class="artwork">
+            <img src="F742F420-ACAB-4FFC-AF67-08B0997CC5C6.jpeg"
+                 alt="Album Cover">
+        </div>
+
+
+        <div class="album-details">
+
+            <h1>???</h1>
+
+            <div class="metadata">
+
+                <div>
+                    <span>Artist</span>
+                    <span>CDY</span>
+                </div>
+
+                <div>
+                    <span>Released</span>
+                    <span>Soon</span>
+                </div>
+
+                <div>
+                    <span>Type</span>
+                    <span>Album</span>
+                </div>
+
+                <div>
+                    <span>Tracks</span>
+                    <span>???</span>
+                </div>
+
+                <div>
+                    <span>Runtime</span>
+                    <span>[00:00]</span>
+                </div>
+
+                <div>
+                    <span>Catalogue</span>
+                    <span>CDY-[000]</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- INFORMATION -->
+
+<section>
+
+    <div class="section-heading">
+        <span class="number">[02]</span>
+        <h2>Information</h2>
+    </div>
+
+    <p>
+        The first album by CDY.
+    </p>
+
+    <p class="muted">
+        More information about the album will be added here.
+    </p>
+
+</section>
+
+
+<!-- TRACKLIST -->
+
+<section>
+
+    <div class="section-heading">
+        <span class="number">[03]</span>
+        <h2>Tracklist</h2>
+    </div>
+
+    <div class="tracklist">
+
+        <div class="track">
+            <span class="track-number">01</span>
+            <span>Track name</span>
+            <span class="track-duration">00:00</span>
+        </div>
+
+        <div class="track">
+            <span class="track-number">02</span>
+            <span>Track name</span>
+            <span class="track-duration">00:00</span>
+        </div>
+
+        <div class="track">
+            <span class="track-number">03</span>
+            <span>Track name</span>
+            <span class="track-duration">00:00</span>
+        </div>
+
+        <!-- ADD MORE TRACKS HERE -->
+
+    </div>
+
+</section>
+
+
+<!-- CREDITS -->
+
+<section>
+
+    <div class="section-heading">
+        <span class="number">[04]</span>
+        <h2>Credits</h2>
+    </div>
+
+    <div class="credit">
+        <span>Artist</span>
+        <span>CDY</span>
+    </div>
+
+    <div class="credit">
+        <span>Music</span>
+        <span>CDY</span>
+    </div>
+
+    <div class="credit">
+        <span>Production</span>
+        <span>CDY</span>
+    </div>
+
+    <div class="credit">
+        <span>Artwork</span>
+        <span>CDY</span>
+    </div>
+
+</section>
+
+
+<!-- LISTEN / DOWNLOAD -->
+
+<section>
+
+    <div class="section-heading">
+        <span class="number">[05]</span>
+        <h2>Listen / Download</h2>
+    </div>
+
+    <div class="links">
+
+        <a href="#">Bandcamp</a>
+        /
+        <a href="#">Spotify</a>
+        /
+        <a href="#">YouTube</a>
+        /
+        <a href="#">Download</a>
+
+    </div>
+
+</section>
+
+
+<!-- COPYRIGHT -->
+
+<section>
+
+    <div class="section-heading">
+        <span class="number">[06]</span>
+        <h2>Copyright</h2>
+    </div>
+
+    <div class="copyright">
+
+        <p>
+            © 2026 CDY. All rights reserved.
+        </p>
+
+        <p>
+            All music, recordings and artwork are property of CDY
+            unless otherwise stated.
+        </p>
+
+        <p>
+            Catalogue: CDY-[000]
+        </p>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <span>© 2026 CDY</span>
+    <span><a href="index.html">← Back</a></span>
+
+</footer>
+
+</main>
+
+</body>
+</html>
